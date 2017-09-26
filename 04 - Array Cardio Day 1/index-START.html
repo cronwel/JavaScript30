@@ -6,6 +6,10 @@
 </head>
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+
+  <div class="things" >
+
+  </div>
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -27,32 +31,182 @@
       { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
     ];
 
-    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+    const people = [
+      'Beck, Glenn',
+      'Becker, Carl',
+      'Beckett, Samuel',
+      'Beecher, Henry',
+      'Benjamin, Walter',
+      'Begin, Menachem',
+      'Belloc, Hilaire',
+      'Bellow, Saul',
+      'Benchley, Robert',
+      'Benenson, Peter',
+      'Beddoes, Mick',
+      'Benn, Tony',
+      'Benson, Leana',
+      'Beethoven, Ludwig',
+      'Bennington, Chester',
+      'Bent, Silas',
+      'Berger, Ric',
+      'Bergman, Ingmar',
+      'Berio, Luciano',
+      'Berle, Milton',
+      'Bentsen, Lloyd',
+      'Berlin, Irving',
+      'Berne, Eric',
+      'Bernhard, Sandra',
+      'Bevan, Aneurin',
+      'Berra, Yogi',
+      'Berry, Wendell',
+      'Ben-Gurion, David',
+      'Bevel, Ken',
+      'Bethea, Erin',
+      'Biden, Joseph',
+      'Bierce, Ambrose',
+      'Biko, Steve',
+      'Berry, Halle',
+      'Billings, Josh',
+      'Biondo, Frank',
+      'Birrell, Augustine',
+      'Black, Elk',
+      'Blair, Robert',
+      'Blair, Tony',
+      'Blake, William'];
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+  const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600))
+
+console.table(fifteen);
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+
+// Map - takes in an array , rreturns new array with same length
+// Option 1
+// const fullNames = inventors.map(inventor => inventor.firs
+  // t + ' ' + inventor.last);
+
+  const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+//
+console.table(fullNames);
+
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+// const sorted = inventors.sort(function(a,b) {
+//   if(a.year > b.year) {
+//     return 1;
+//   } else {
+//     return -1;
+//   }
+// });
+
+// OPTION 2
+
+
+const sorted = inventors.sort((a,b) => a.year > b.year? 1:-1 );
+
+console.table(sorted);
+
+
+
+
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
 
+const lifespan = inventors.reduce((total, inventor) => {
+  return total + (inventor.passed - inventor.year)
+},0);
+
+console.log(lifespan);
+
+
+
+
+
+
     // 5. Sort the inventors by years lived
+
+
+// Option 1
+// const oldest = inventors.sort(function(a,b){
+//   const elder = a.passed - a.year;
+//   const youngin = b.passed -b.year;
+//   if(elder > youngin) {
+//     return -1;
+//   } else {
+//     return 1;
+//   }
+// });
+
+// Option 2
+
+const oldest = inventors.sort(function(a,b){
+  const elder = a.passed - a.year;
+  const youngin = b.passed -b.year;
+  return elder > youngin ? -1 : 1;
+});
+
+console.table(oldest);
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+// const category = document.querySelector(`.mw-category`);
+// const links = category.querySelectorAll('a');
+// console.log(links);
+//
+// const linksa = links.map(link => link.textContent);
+//
+// console.table(linksa);
+
+// ERROR NODELIST, NOT AN Array
+// const category = document.querySelector(`.mw-category`);
+// const links = Array.from(category.querySelectorAll('a'));
+// const linksa = links
+//   .map(link => link.textContent)
+//   .filter(streetName => streetName.includes('de'));
+
+
+
+
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+// reverse sort
+// const alpha = people.sort((chi,boz) => {
+//   const [last, first] = chi.split(", ");
+//   const [lastb, firstb] = boz.split(", ");
+//   return last > lastb ? -1 : 1;
+// });
+// console.log(alpha);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+  const transport = data.reduce(function(object, item) {
+    if(!object[item]){
+      object[item] = 0;
+    }
+    object[item]++;
+    return object;
+  }, {
+    // car: 0,
+    // walk: 0,
+    // truck: 0,
+    // bike: 0,
+    // van: 0
+  });
+
+console.table(transport);
+
 
   </script>
 </body>
